@@ -1,0 +1,17 @@
+{
+  "name": "Registro Compartido",
+  "short_name": "Registro",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7f5ef",
+  "theme_color": "#17324d",
+  "description": "Base PWA para registros compartidos, tablas editables y archivos.",
+  "icons": [
+    {
+      "src": "./mark.svg",
+      "sizes": "96x96",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

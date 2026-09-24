@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f5ef" />
+    <title>Registro Compartido</title>
+    <link rel="icon" href="./mark.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegacion principal">
+        <div class="brand">
+          <img src="./mark.svg" alt="" class="brand-mark" />
+          <div>
+            <strong>Registro Compartido</strong>
+            <span id="workspaceName">Despacho demo</span>
+          </div>
+        </div>
+
+        <nav class="nav-tabs" aria-label="Secciones">
+          <button class="nav-tab active" data-view="dashboard" type="button">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+            Inicio
+          </button>
+          <button class="nav-tab" data-view="tables" type="button">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="16" rx="1.5"/>
+              <path d="M3 9h18M9 4v16"/>
+            </svg>
+            Tablas
+          </button>
+          <button class="nav-tab" data-view="members" type="button">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="9" cy="8" r="3.5"/>
+              <path d="M3 19c0-3 2.5-5 6-5s6 2 6 5"/>
+              <circle cx="17" cy="9" r="2.5"/>
+              <path d="M21 19c0-2.2-1.5-3.8-4-4.2"/>
+            </svg>
+            Miembros
+          </button>
+          <button class="nav-tab" data-view="files" type="button">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 6.5A1.5 1.5 0 0 1 6.5 5h5.2L14 7.5h3.5A1.5 1.5 0 0 1 19 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18.5v-12Z"/>
+              <path d="M9 13h6M9 16h4"/>
+            </svg>
+            Archivos
+          </button>
+          <button class="nav-tab" data-view="settings" type="button">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 3v2M12 19v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M3 12h2M19 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+            </svg>
+            Ajustes
+          </button>
+        </nav>
+
+        <div class="sync-card">
+          <span class="status-dot" id="statusDot"></span>
+          <div>
+            <strong id="syncLabel">Sincronizado</strong>
+            <span id="syncDetail">Modo local listo</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow" id="todayLabel">Panel</p>
+            <h1 id="pageTitle">Inicio</h1>
+          </div>
+          <div class="top-actions">
+            <button class="icon-button" id="installBtn" type="button" title="Instalar app" hidden>Instalar</button>
+            <button class="ghost-button" id="seedBtn" type="button">Restaurar demo</button>
+            <button class="primary-button" id="newSheetBtn" type="button">Nueva tabla</button>
+          </div>
+        </header>
+
+        <section class="view active" id="dashboardView" aria-labelledby="pageTitle">
+          <div class="metrics-grid">
+            <article class="metric">
+              <span>Miembros activos</span>
+              <strong id="activeMembers">0</strong>
+            </article>
+            <article class="metric">
+              <span>Tablas</span>
+              <strong id="tableCount">0</strong>
+            </article>
+            <article class="metric">
+              <span>Archivos</span>
+              <strong id="fileCount">0</strong>
+            </article>
+            <article class="metric">
+              <span>Ultima edicion</span>
+              <strong id="lastEdit">-</strong>
+            </article>
+          </div>
+
+          <div class="dashboard-layout">
+            <section class="panel">
+              <div class="panel-heading">
+                <h2>Actividad</h2>
+                <button class="text-button" id="clearAuditBtn" type="button">Limpiar</button>
+              </div>
+              <ul class="activity-list" id="activityList"></ul>
+            </section>
+
+            <section class="panel">
+              <div class="panel-heading">
+                <h2>Tablas recientes</h2>
+                <button class="text-button" data-open-view="tables" type="button">Abrir</button>
+              </div>
+              <div class="recent-sheets" id="recentSheets"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="tablesView" aria-labelledby="pageTitle">
+          <div class="toolbar">
+            <label class="search-field">
+              <span>Buscar</span>
+              <input id="tableSearch" type="search" placeholder="Nombre, cliente, impuesto..." />
+            </label>
+            <select id="sheetPicker" aria-label="Tabla activa"></select>
+            <button class="ghost-button" id="renameSheetBtn" type="button">Renombrar</button>
+            <button class="ghost-button" id="addColumnBtn" type="button">Columna</button>
+            <button class="primary-button" id="addRowBtn" type="button">Fila</button>
+          </div>
+
+          <div class="sheet-meta">
+            <div>
+              <strong id="sheetNameLabel">Tabla</strong>
+              <span id="sheetUpdatedLabel">Sin cambios</span>
+            </div>
+            <div class="sheet-actions">
+              <label class="file-button">
+                Importar CSV
+                <input id="csvInput" type="file" accept=".csv,text/csv" />
+              </label>
+              <button class="ghost-button" id="exportCsvBtn" type="button">Exportar CSV</button>
+            </div>
+          </div>
+
+          <div class="table-wrap" role="region" aria-label="Tabla editable" tabindex="0">
+            <table class="data-table" id="dataTable"></table>
+          </div>
+        </section>
+
+        <section class="view" id="membersView" aria-labelledby="pageTitle">
+          <div class="toolbar">
+            <label class="search-field">
+              <span>Buscar</span>
+              <input id="memberSearch" type="search" placeholder="Nombre, rol, correo..." />
+            </label>
+            <select id="memberRoleFilter" aria-label="Filtro por rol">
+              <option value="">Todos los roles</option>
+              <option value="Administrador">Administrador</option>
+              <option value="Contador">Contador</option>
+              <option value="Cliente">Cliente</option>
+            </select>
+            <button class="primary-button" id="addMemberBtn" type="button">Nuevo miembro</button>
+          </div>
+          <div class="members-grid" id="membersGrid"></div>
+        </section>
+
+        <section class="view" id="filesView" aria-labelledby="pageTitle">
+          <div class="toolbar">
+            <label class="search-field">
+              <span>Buscar</span>
+              <input id="fileSearch" type="search" placeholder="Archivo, miembro, tipo..." />
+            </label>
+            <select id="fileMemberFilter" aria-label="Filtro por miembro"></select>
+            <label class="file-button primary-file">
+              Subir archivo
+              <input id="fileInput" type="file" multiple />
+            </label>
+          </div>
+          <div class="files-list" id="filesList"></div>
+        </section>
+
+        <section class="view" id="settingsView" aria-labelledby="pageTitle">
+          <div class="settings-grid">
+            <section class="panel">
+              <h2>Organizacion</h2>
+              <label class="field">
+                <span>Nombre visible</span>
+                <input id="workspaceInput" type="text" />
+              </label>
+              <label class="field">
+                <span>Tu rol en esta prueba</span>
+                <select id="roleInput">
+                  <option>Administrador</option>
+                  <option>Contador</option>
+                  <option>Cliente</option>
+                </select>
+              </label>
+              <button class="primary-button" id="saveSettingsBtn" type="button">Guardar</button>
+            </section>
+
+            <section class="panel">
+              <h2>Drive</h2>
+              <div class="drive-row">
+                <span class="drive-badge" id="driveBadge">Local</span>
+                <strong id="driveLabel">No vinculado</strong>
+              </div>
+              <button class="ghost-button" id="toggleDriveBtn" type="button">Simular vinculo</button>
+            </section>
+
+            <section class="panel">
+              <h2>Conexion real</h2>
+              <div class="stack">
+                <span class="code-pill" id="backendModeLabel">Modo local</span>
+                <span id="workspaceIdLabel">demo-workspace</span>
+                <span id="pendingSyncLabel">0 cambios pendientes</span>
+              </div>
+              <button class="ghost-button" id="syncNowBtn" type="button">Sincronizar ahora</button>
+            </section>
+
+            <section class="panel">
+              <h2>Datos</h2>
+              <div class="button-row">
+                <button class="ghost-button" id="exportBackupBtn" type="button">Respaldo JSON</button>
+                <label class="file-button">
+                  Cargar respaldo
+                  <input id="backupInput" type="file" accept=".json,application/json" />
+                </label>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="quickDialog">
+      <form method="dialog" class="dialog-card">
+        <h2 id="dialogTitle">Nuevo</h2>
+        <div id="dialogFields"></div>
+        <menu>
+          <button class="ghost-button" value="cancel" type="submit">Cancelar</button>
+          <button class="primary-button" id="dialogConfirm" value="confirm" type="submit">Guardar</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
